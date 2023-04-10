@@ -12,10 +12,9 @@ import (
 func main() {
 	ExecRouter()
 
-	host := "127.0.0.1"
 	port := 8080
-	addr := fmt.Sprintf("%s:%d", host, port)
-	log.Printf("Listening on http://%s", addr)
+	addr := fmt.Sprintf(":%d", port)
+	log.Printf("Listening on %s", addr)
 
 	http.ListenAndServe(addr, nil)
 
