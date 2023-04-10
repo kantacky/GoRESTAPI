@@ -40,14 +40,12 @@ func DomainHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func FetchDomain() ([]model.Domain, error) {
-	db := infrastructure.GetDB("id")
-
 	query := `SELECT domain
 	FROM domain.domain
 	WHERE display_order IS NOT NULL
 	ORDER BY display_order ASC;`
 
-	rows, err := db.Query(query)
+	rows, err := infrastructure.DbId.Query(query)
 
 	if err != nil {
 		return []model.Domain{}, err

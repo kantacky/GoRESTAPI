@@ -40,13 +40,11 @@ func UserHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func FetchUser() ([]model.User, error) {
-	db := infrastructure.GetDB("id")
-
 	query := `SELECT id, username, domain
 	FROM identity.id
 	ORDER BY id ASC;`
 
-	rows, err := db.Query(query)
+	rows, err := infrastructure.DbId.Query(query)
 
 	if err != nil {
 		return []model.User{}, err

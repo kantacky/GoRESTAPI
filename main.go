@@ -1,6 +1,8 @@
 package main
 
 import (
+	"fmt"
+	"log"
 	"net/http"
 
 	"kantacky.com/api/handler/v1/domain"
@@ -10,7 +12,12 @@ import (
 func main() {
 	ExecRouter()
 
-	http.ListenAndServe("127.0.0.1:8080", nil)
+	host := "127.0.0.1"
+	port := 8080
+	addr := fmt.Sprintf("%s:%d", host, port)
+	log.Printf("Listening on http://%s", addr)
+
+	http.ListenAndServe(addr, nil)
 
 	defer infrastructure.Close()
 }

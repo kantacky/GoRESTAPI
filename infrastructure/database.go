@@ -9,24 +9,14 @@ import (
 	_ "github.com/jackc/pgx/v4/stdlib"
 )
 
-var id_db *sql.DB
+var DbId *sql.DB
 
 func init() {
-	id_db_conn, err := connectTCPSocket("id")
+	dbId_conn, err := connectTCPSocket("id")
 	if err != nil {
 		log.Fatalf("Database Connection Error: %v\n", err)
 	}
-
-	id_db = id_db_conn
-}
-
-func GetDB(db_name string) *sql.DB {
-	switch db_name {
-	case "id":
-		return id_db
-	}
-
-	return nil
+	DbId = dbId_conn
 }
 
 func connectTCPSocket(dbName string) (*sql.DB, error) {
@@ -57,7 +47,9 @@ func connectTCPSocket(dbName string) (*sql.DB, error) {
 }
 
 func Close() {
-	if id_db != nil {
-		id_db.Close()
+	if DbId != nil {
+		DbId.Close()
 	}
+
+	log.Printf("The database connection has been closed")
 }
